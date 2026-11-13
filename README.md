@@ -1,43 +1,82 @@
-# ETForum – QnA Sistem za ETF
+# ETForum
 
-## O projektu
+An academic community platform for students and staff of the Faculty of Electrical Engineering, University of Sarajevo. ETForum brings course discussions, study sessions, private messaging, notifications, and student engagement features into one web application.
 
-Sistem za akademsku diskusiju i učenje namijenjen studentima i osoblju ETF-a. Omogućava:
+> Team project developed for the Object-Oriented Analysis and Design course.
 
-- postavljanje i odgovaranje na pitanja po predmetima i odsjecima,
-- lajkanje odgovora i filtriranje po kategorijama,
-- notifikacije i live chat,
-- study room sa timerom i rang listom,
-- sistem dostignuća i ocjenjivanje predmeta,
-- prijatelje i privatne poruke,
-- e-mail obavijesti o aktivnostima.
+## Key features
 
-Cilj je poboljšati razmjenu znanja unutar ETF zajednice i zamijeniti potrebe za platformama poput Facebooka i Reddita.
+- Course-based questions, answers, likes, and content filtering
+- Role-based accounts for students, professors, teaching assistants, and administrators
+- Real-time private chat and notifications with SignalR
+- Study sessions with timers and leaderboards
+- Friend requests, profiles, achievements, and course ratings
+- File uploads and email notifications
+- Administrative moderation and user management
 
+## Tech stack
 
----
+- **Backend:** ASP.NET Core MVC, C#, .NET 9
+- **Data:** Entity Framework Core, SQL Server
+- **Authentication:** ASP.NET Core Identity
+- **Real-time communication:** SignalR
+- **Frontend:** Razor Views, JavaScript, HTML, CSS, Bootstrap
+- **Email:** MailKit and MimeKit
 
-## Online pristup
+## Architecture
 
-Aplikacija je hostovana na sljedećem linku:
+The application follows the MVC pattern:
 
-🔗 **[http://harismacic2-001-site1.qtempurl.com](http://harismacic2-001-site1.qtempurl.com)**
+```text
+ETForum/
+├── Controllers/     Request handling and application flows
+├── Data/            EF Core DbContext and identity seed data
+├── Hubs/            SignalR chat and notification hubs
+├── Models/          Domain and view models
+├── Services/        Email and supporting application services
+├── Views/           Razor UI grouped by feature
+├── Migrations/      Database schema history
+└── wwwroot/         JavaScript, styles, images, and uploads
+```
 
----
+## Getting started
 
-## Testni korisnici
+### Prerequisites
 
-| Uloga     | Email                   | Lozinka          |
-|-----------|-------------------------|------------------|
-| Admin     | admin@etf.unsa.ba       | **Admin123!**    |
-| Profesor  | profesor@etf.unsa.ba    | **Profesor123!** |
-| Student   | student@etf.unsa.ba     | **Student123!**  |
+- .NET 9 SDK
+- SQL Server or SQL Server Express
 
----
+### Run locally
 
-## Konekcijski string
+1. Clone the repository.
+2. Configure `ConnectionStrings:DefaultConnection` using an environment variable, .NET user secrets, or a local development settings file that is not committed.
+3. Restore dependencies and apply the migrations:
 
+```bash
+dotnet restore
+dotnet ef database update --project ETForum/ETForum.csproj
+```
 
-"ConnectionStrings": {
-  "DefaultConnection": "Data Source=SQL1001.site4now.net;Initial Catalog=db_ab92ee_ooad2025;User Id=db_ab92ee_ooad2025_admin;Password=ETForum2"
-}
+4. Start the application:
+
+```bash
+dotnet run --project ETForum/ETForum.csproj
+```
+
+The local URL is printed in the terminal when the application starts.
+
+## Configuration
+
+Do not commit production credentials. The application expects a database connection string and, when email delivery is enabled, SMTP configuration. Use environment variables or .NET user secrets for local development.
+
+## What this project demonstrates
+
+- Designing a multi-role web application with ASP.NET Core MVC
+- Modeling a relational domain with Entity Framework Core
+- Implementing real-time features with SignalR
+- Applying authentication, authorization, migrations, and layered organization
+- Collaborating in a four-person team with Git and GitHub
+
+## Contributors
+
+Built by a four-member student team. This repository is a fork retained as part of Ilma Hindija's academic portfolio.
